@@ -4,10 +4,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, precision_recall_fscore_support
 import torch
 
-# verificarea disponibilității GPU
+# verificarea disponibilitatii GPU
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-# 1. încărcarea și împărțirea datelor
+# 1. incarcarea si impartirea datelor
 def load_and_split_data(train_path, test_path):
     train_df = pd.read_csv(train_path)
     test_df = pd.read_csv(test_path)
@@ -42,7 +42,7 @@ def compute_metrics(eval_pred):
     acc = accuracy_score(labels, predictions)
     return {"accuracy": acc, "f1": f1, "precision": precision, "recall": recall}
 
-# 6. Antrenarea modelului
+# 6. antrenarea modelului
 def train_model(train_dataset, val_dataset, model, data_collator):
     training_args = TrainingArguments(
         output_dir="./results",
@@ -68,14 +68,14 @@ def train_model(train_dataset, val_dataset, model, data_collator):
     trainer.train()
     return trainer
 
-# 7. Predicția etichetelor
+# 7. predictia etichetelor
 def predict_labels(trainer, test_dataset, label_mapping):
     predictions = trainer.predict(test_dataset)
     reverse_label_mapping = {v: k for k, v in label_mapping.items()}
     predicted_labels = [reverse_label_mapping[label] for label in torch.argmax(torch.tensor(predictions.predictions), dim=1).numpy()]
     return predicted_labels
 
-# pași procedurali
+# pasi procedurali
 train_path = "train.csv"
 test_path = "test.csv"
 train_texts, val_texts, train_labels, val_labels, test_df = load_and_split_data(train_path, test_path)
