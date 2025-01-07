@@ -1,4 +1,4 @@
-Solutie BERT
+Solutie BERT (test_completed_bert)
 
 1. Încărcarea și împărțirea datelor
 Datele din fișierul train.csv au fost împărțite în seturi de antrenare și validare (80% antrenare, 20% validare). Fișierul test.csv a fost încărcat pentru a face predicții asupra articolelor necunoscute.
@@ -37,3 +37,32 @@ Fișierul completat (test_completed_bert.csv) conține textele din setul de test
 Modelul și tokenizer-ul au fost salvați pentru reutilizare ulterioară.
 
 Accuratete: 0.82
+
+===============================================================
+
+Solutie TfidfVectorizer si RandomForestClassifier (test_completed_random_forest)
+
+1. Încărcarea datelor
+Datele sunt încărcate din fișierele CSV:
+
+train.csv pentru antrenare și validare.
+test.csv pentru predicții.
+2. Împărțirea datelor de antrenament și validare
+Setul de antrenament este împărțit astfel:
+
+80% din date sunt utilizate pentru antrenare.
+20% din date sunt utilizate pentru validare. Funcția utilizată: train_test_split din Scikit-learn.
+3. Prelucrarea textelor
+Pentru a transforma textele în reprezentări numerice, se utilizează TF-IDF (Term Frequency - Inverse Document Frequency):
+
+Stopwords în limba franceză sunt eliminate pentru a reduce zgomotul.
+Numărul maxim de caracteristici este limitat la 5000 pentru a controla complexitatea.
+4. Clasificarea textelor
+Se utilizează Random Forest Classifier, un algoritm robust de clasificare care combină mai mulți arbori de decizie:
+
+Numărul de arbori utilizați: 100.
+Parametrii default din Scikit-learn au fost păstrați.
+5. Antrenarea modelului
+Pipeline-ul format din TfidfVectorizer și RandomForestClassifier este antrenat pe setul de antrenament.
+
+Accuratete: 0.72
